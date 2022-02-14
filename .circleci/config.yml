@@ -49,13 +49,12 @@ jobs:
 workflows:
   say-hello-workflow:
     triggers:
-    #   - schedule:
-    #       # Every day
-    #       cron: "0 0 * * *"
-    #       filters:
-    #         branches:
-    #           only:
-    #             - circleci-project-setup
+      - schedule:
+          # Every day
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
     jobs:
       - semgrep-scan:
           filters:
