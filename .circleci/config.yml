@@ -5,13 +5,13 @@ jobs:
     parameters: 
       repo_path:
         type: string
-        default: holdenmcg/BenchmarkJava
+        default: org/repo
       diff_branch:
         type: string
-        default: master
+        default: main
 
     environment:
-      #SEMGREP_RULES: >- # more at semgrep.dev/explore
+      # SEMGREP_RULES: >- # more at semgrep.dev/explore
         # p/security-audit
         # p/secrets
 
@@ -43,4 +43,4 @@ workflows:
       - semgrep-scan:
          filters:
             branches:
-              only: circleci-project-setup
+              only: main
