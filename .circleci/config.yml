@@ -8,7 +8,7 @@ jobs:
         default: holdenmcg/BenchmarkJava
       diff_branch:
         type: string
-        default: main
+        default: master
 
     environment:
       #SEMGREP_RULES: >- # more at semgrep.dev/explore
