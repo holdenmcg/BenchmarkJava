@@ -26,8 +26,6 @@ jobs:
       SEMGREP_REPO_NAME: << parameters.repo_path >>
       SEMGREP_REPO_URL: << pipeline.project.git_url >>
       SEMGREP_BRANCH: << pipeline.git.branch >>
-      SEMGREP_COMMIT: CIRCLE_SHA1
-      SEMGREP_PR_ID: ${CIRCLE_PR_NUMBER}
 
       # Change job timeout (default is 1800 seconds; set to 0 to disable)
       # SEMGREP_TIMEOUT: 300
@@ -41,11 +39,13 @@ jobs:
           command: |
               echo 'export SEMGREP_COMMIT=$CIRCLE_SHA1' >> $BASH_ENV
               echo 'export SEMGREP_PR_ID=$CIRCLE_PR_NUMBER' >> $BASH_ENV
+              echo 'export SEMGREP_JOB_URL=$CIRCLE_BUILD_URL' >> $BASH_ENV
       - run:
           name: "print environment variables"
           command: |
               echo $SEMGREP_COMMIT
               echo $SEMGREP_PR_ID
+              echo $SEMGREP_JOB_URL
       - run:
           name: "Semgrep scan"
           command: semgrep-agent
