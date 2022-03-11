@@ -26,6 +26,8 @@ jobs:
       SEMGREP_REPO_NAME: << parameters.repo_path >>
       SEMGREP_REPO_URL: << pipeline.project.git_url >>
       SEMGREP_BRANCH: << pipeline.git.branch >>
+      SEMGREP_COMMIT: $CIRCLE_SHA1
+      SEMGREP_PR_ID: $CIRCLE_PULL_REQUEST
 
       # Change job timeout (default is 1800 seconds; set to 0 to disable)
       # SEMGREP_TIMEOUT: 300
@@ -37,6 +39,11 @@ jobs:
       - run:
           name: "Semgrep scan"
           command: semgrep-agent
+      - run:
+          name: "print environment variables"
+          command: |
+              echo $SEMGREP_COMMIT
+              echo $SEMGREP_PULL_REQUEST
 workflows:
   Semgrep:
     jobs:
