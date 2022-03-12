@@ -33,8 +33,8 @@ jobs:
               echo 'export SEMGREP_COMMIT=$CIRCLE_SHA1' >> $BASH_ENV
               echo 'export SEMGREP_PR_ID=$CIRCLE_PR_NUMBER' >> $BASH_ENV
               echo 'export SEMGREP_JOB_URL=$CIRCLE_BUILD_URL' >> $BASH_ENV
-              echo $SEMGREP_REPO_URL
-              echo ${$SEMGREP_REPO_URL//^https:\/\/github.com\/(.*).git$//$1}
+              echo $CIRCLE_PROJECT_REPONAME
+              echo $CIRCLE_PROJECT_USERNAME
       - run:
           name: "Semgrep scan"
           command: semgrep-agent
