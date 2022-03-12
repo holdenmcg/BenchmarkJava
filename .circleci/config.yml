@@ -34,6 +34,9 @@ jobs:
               echo 'export SEMGREP_PR_ID=$CIRCLE_PR_NUMBER' >> $BASH_ENV
               echo 'export SEMGREP_JOB_URL=$CIRCLE_BUILD_URL' >> $BASH_ENV
               echo 'export SEMGREP_REPO_NAME=$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME' >> $BASH_ENV
+      - run:
+          name: 'print env vars'
+          command: |
               echo $SEMGREP_COMMIT
               echo $SEMGREP_JOB_URL
               echo $SEMGREP_REPO_NAME
