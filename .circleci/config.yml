@@ -27,7 +27,7 @@ jobs:
               
       - run:
           name: "printenv"
-          command: echo printenv
+          command: printenv
 
       - run:
           name: "Semgrep scan"
