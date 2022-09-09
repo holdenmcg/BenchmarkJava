@@ -4,7 +4,7 @@ jobs:
     parameters:
       default_branch:
         type: string
-        default: main
+        default: master
     environment:
       # Scan changed files in PRs, only report new findings (existing findings ignored)
       SEMGREP_BASELINE_REF: << parameters.default_branch >>
