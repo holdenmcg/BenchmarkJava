@@ -1,17 +1,28 @@
 version: 2.1
-
 jobs:
   semgrep-scan:
-    parameters: 
+    parameters:
+      default_branch:
+        type: string
+        default: main
     environment:
-      # Scan changed files in PRs, block on new issues only (existing issues ignored)
-      SEMGREP_BASELINE_REF: 'circleci-project-setup'
+      # Scan changed files in PRs, only report new findings (existing findings ignored)
+      SEMGREP_BASELINE_REF: << parameters.default_branch >>
+
+    # == Optional settings in the `environment:` block
+
+    # Instead of `SEMGREP_APP_TOKEN:`, set hard-coded rulesets, 
+    # viewable in logs.
+    #   SEMGREP_RULES: p/default # See more at semgrep.dev/explore.
+
+    # These variables should be set to provide information to the Semgrep App.
+      SEMGREP_REPO_NAME: '$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME'
       SEMGREP_REPO_URL: << pipeline.project.git_url >>
       SEMGREP_BRANCH: << pipeline.git.branch >>
-      SEMGREP_REPO_NAME: '$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME'
 
-      # Change job timeout (default is 1800 seconds; set to 0 to disable)
-      # SEMGREP_TIMEOUT: 300
+
+    # Change job timeout (default is 1800 seconds; set to 0 to disable)
+    #   SEMGREP_TIMEOUT: 300
 
     docker:
       - image: returntocorp/semgrep
@@ -23,11 +34,10 @@ jobs:
       #         echo 'export SEMGREP_COMMIT=$CIRCLE_SHA1' >> $BASH_ENV
       #         echo 'export SEMGREP_PR_ID=${CIRCLE_PULL_REQUEST##*/}' >> $BASH_ENV
       #         echo 'export SEMGREP_JOB_URL=$CIRCLE_BUILD_URL' >> $BASH_ENV
-
       - run:
           name: "Semgrep scan"
           command: semgrep ci
 workflows:
-  Semgrep:
+  main:
     jobs:
       - semgrep-scan
