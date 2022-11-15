@@ -16,7 +16,7 @@ jobs:
     #   SEMGREP_RULES: p/default # See more at semgrep.dev/explore.
 
     # These variables should be set to provide information to the Semgrep App.
-      SEMGREP_REPO_NAME: '$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME'
+      SEMGREP_REPO_NAME: '${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}'
       SEMGREP_REPO_URL: << pipeline.project.git_url >>
       SEMGREP_BRANCH: << pipeline.git.branch >>
 
