@@ -38,6 +38,9 @@ jobs:
       - run:
           name: "Semgrep scan"
           command: semgrep ci
+          environment:
+            SEMGREP_COMMIT: $CIRCLE_SHA1
+            
 workflows:
   main:
     jobs:
