@@ -16,11 +16,8 @@ jobs:
     #   SEMGREP_RULES: p/default # See more at semgrep.dev/explore.
 
     # These variables should be set to provide information to the Semgrep App.
-      SEMGREP_REPO_NAME: '$CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}'
       SEMGREP_REPO_URL: << pipeline.project.git_url >>
       SEMGREP_BRANCH: << pipeline.git.branch >>
-      SEMGREP_COMMIT: $CIRCLE_SHA1
-      SEMGREP_JOB_URL: $CIRCLE_BUILD_URL
 
 
     # Change job timeout (default is 1800 seconds; set to 0 to disable)
@@ -36,6 +33,8 @@ jobs:
               SEMGREP_COMMIT=$CIRCLE_SHA1
               echo 'export SEMGREP_PR_ID=${CIRCLE_PULL_REQUEST##*/}' >> "$BASH_ENV"
               echo 'export SEMGREP_JOB_URL=${CIRCLE_BUILD_URL}' >> "$BASH_ENV"
+              echo 'export SEMGREP_REPO_NAME=${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}' >> "$BASH_ENV"
+              echo 'export SEMGREP_COMMT=${CIRCLE_SHA1}' >> "BASH_ENV"
               printenv
       - run:
           name: "Semgrep scan"
